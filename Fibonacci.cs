@@ -28,9 +28,8 @@ namespace Optimization
             Console.WriteLine(
                    "{0}{1}{1}{1}{1}{1}{1}{1}",
                    "----|", "-----------|");
-            L = b - a;
-            x1 = a + F[N - 2] / F[N] * L;
-            x2 = a + F[N - 1] / F[N] * L;
+            x1 = a + F[N - 2] / F[N] * (b - a);
+            x2 = a + F[N - 1] / F[N] * (b - a);
             do
             {
                 k++;
@@ -47,13 +46,13 @@ namespace Optimization
                 {
                     b = x2;
                     x2 = x1;
-                    x1 = a + F[N - k - 2] / F[N - k] * L;
+                    x1 = a + F[N - k - 2] / F[N - k] * (b-a);
                 }
                 else
                 {
                     a = x1;
                     x1 = x2;
-                    x2 = a + F[N - k - 1] / F[N - k] * L;
+                    x2 = a + F[N - k - 1] / F[N - k] * (b - a);
                 }
             }
             while (k != N-2);
