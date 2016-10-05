@@ -101,7 +101,7 @@ namespace Optimization
             Console.WriteLine(
                             "{0,3} |{1,15:0.0000} |{2,15:0.0000} |{3,15:0.0000} |{4,15:0.0000} |",
                             k, xl, xg, xh, xc.F);
-            if (Sigma > eps)
+            if (Sigma > eps && k<100)
             {
                 goto region1;
             }
