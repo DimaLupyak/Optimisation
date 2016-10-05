@@ -16,8 +16,13 @@ namespace Optimization
         static void Main(string[] args)
         {
             double x1, x2;
+            double y;
+            CoordinateDescent.GetMin(f, 0.0001, out x1, out x2);
+            y = f(x1, x2);
+            Console.WriteLine("x1 = {0:0.000} \t x2 = {1:0.000} \t y(x) = {2:0.000}\n", x1, x2, y);
+
             PatternSearch.GetMin(f, 0.0001, out x1, out x2);
-            double y = f(x1, x2);
+            y = f(x1, x2);
             Console.WriteLine("x1 = {0:0.000} \t x2 = {1:0.000} \t y(x) = {2:0.000}\n", x1, x2, y);
             Console.ReadKey();
         }      

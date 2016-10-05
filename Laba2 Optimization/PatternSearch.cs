@@ -10,92 +10,67 @@ namespace Optimization
     {
         public static void GetMin(Func<double, double, double> f, double eps, out double x1, out double x2)
         {
-            bool flagNewBasePoint = false;
-            int h = 1;
+            double h = 50, alpha = 2;
             x1 = 1;
             x2 = 1;
-            X xb = new X(x1, x2);
-            X xiter = new X(x1, x2);
-            X xtmp = new X(h, 0);
-
-            double yb = f(xb.x1, xb.x2);
-            double ymin = yb;
-
-            while ( Math.Sqrt(h * h + h * h) > eps)
+            Console.WriteLine(new String('-', 52));
+            Console.WriteLine("{0,35}{1,18}", "Pattern Search", "|");
+            Console.WriteLine(new String('-', 52) + "|");
+            Console.WriteLine(
+                            "{0,3} |{1,10} |{2,10} |{3,10} |{4,10} |",
+                            "k", "x1", "x2", "h", "y");
+            Console.WriteLine(
+                   "{0}{1}{1}{1}{1}",
+                   "----|", "-----------|");
+            for (int k = 0; h > eps; k++)
             {
-                Console.WriteLine("Finding new basic point.");
-
-                #region x1 change
-                xtmp.x1 = -h;
-                if (ymin > f((xtmp + xiter).x1, (xtmp + xiter).x2))
+                int directionX1, directionX2; 
+                int i = 0;
+                do
                 {
-                    xiter += xtmp;
-                    flagNewBasePoint = true;
-                }
-                else
-                {
-                    xtmp.x1 = h;
-                    if (ymin > f((xtmp + xiter).x1, (xtmp + xiter).x2))
+                    //x1 direction
+                    if (f(x1, x2) > f(x1 + h, x2))
                     {
-                        xiter += xtmp;
-                        flagNewBasePoint = true;
+                        directionX1 = 1;
                     }
-                    else 
+                    else if (f(x1, x2) > f(x1 - h, x2))
                     {
-                        xtmp.x1 = 0;
-                        flagNewBasePoint = false;
+                        directionX1 = -1;
                     }
-                }
-                ymin = f(xiter.x1, xiter.x2);
-                #endregion
-
-                #region x2 change
-                xtmp.x2 = -h;
-                if (ymin > f((xtmp + xiter).x1, (xtmp + xiter).x2))
-                {
-                    xiter += xtmp;
-                    flagNewBasePoint = true;
-                }
-                else
-                {
-                    xtmp.x2 = h;
-                    if (ymin > f((xtmp + xiter).x1, (xtmp + xiter).x2))
+                    else directionX1 = 0;
+                    //x2 direction
+                    if (f(x1, x2) > f(x1, x2 + h))
                     {
-                        xiter += xtmp;
-                        flagNewBasePoint = true;
+                        directionX2 = 1;
                     }
-                    else
+                    else if (f(x1, x2) > f(x1, x2 - h))
                     {
-                        xtmp.x2 = 0;
-                        if (flagNewBasePoint == false) 
-                        {
-                            h /= 2;
-                            Console.WriteLine("\tChange delta X = " + h + "\n");
-                            continue;
-                        }
+                        directionX2 = -1;
+                    }
+                    else directionX2 = 0;
+                    //x1 move
+                    if (directionX1 != 0)
+                    {
+                        x1 += directionX1 * h;
+                        i++;
+                    }
+                    //x2 move
+                    if (directionX2 != 0)
+                    {
+                        x2 += directionX2 * h;
+                        i++;
+                    }
+                    if (directionX1 * directionX2 != 0)
+                    {
+                        Console.WriteLine(
+                               "{0,3} |{1,10:0.0000} |{2,10:0.0000} |{3,10:0.0000} |{4,10:0.0000} |",
+                               k, x1, x2, h, f(x1, x2));
                     }
                 }
-                ymin = f(xiter.x1, xiter.x2);
-                #endregion
-
-                Console.WriteLine("New basic point: " + xb.ToString() + "\nf(X) = " + f(xb.x1, xb.x2));
-
-                Console.WriteLine("Jumping on the temple to new basic point.");
-
-                while(f(xiter.x1, xiter.x2) < f(xb.x1, xb.x2))
-                {
-                    xb = xiter;
-
-                    xiter += xtmp;
-                    Console.WriteLine("New basic point: " + xb.ToString() + "\nf(X) = " + f(xb.x1, xb.x2));
-                }
-                flagNewBasePoint = false;
-                xtmp.x1 = 0;
-                xtmp.x2 = 0;
+                while (directionX1 != 0 && directionX2 != 0 &&  i < 200);    
+                h /= alpha;
             }
-
-            Console.WriteLine("The foundet point: " + xb.ToString() + "\nf(X) = " + f(xb.x1, xb.x2));
-        
+            Console.WriteLine(new String('-', 52));
         }
 
         public static void GetMax(Func<double, double, double> f, double eps, out double x1, out double x2)

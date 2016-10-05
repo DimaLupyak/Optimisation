@@ -40,6 +40,9 @@ namespace Optimization
                     {
                         x1 += direction * h;
                         i++;
+                        Console.WriteLine(
+                            "{0,3} |{1,10:0.0000} |{2,10:0.0000} |{3,10:0.0000} |{4,10:0.0000} |",
+                            k, x1, x2, h, f(x1, x2));
                     }
                 }
                 while (direction != 0 && i < 100);
@@ -59,12 +62,13 @@ namespace Optimization
                     {
                         x2 += direction * h;
                         i++;
+                        Console.WriteLine(
+                            "{0,3} |{1,10:0.0000} |{2,10:0.0000} |{3,10:0.0000} |{4,10:0.0000} |",
+                            k, x1, x2, h, f(x1, x2));
                     }
                 }
                 while (direction != 0 && i < 100);
-                Console.WriteLine(
-                            "{0,3} |{1,10:0.0000} |{2,10:0.0000} |{3,10:0.0000} |{4,10:0.0000} |",
-                            k, x1, x2, h, f(x1,x2));
+                
                 h /= alpha;
             }
             Console.WriteLine(new String('-', 52));
