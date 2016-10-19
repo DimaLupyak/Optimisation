@@ -36,18 +36,14 @@ namespace Laba3_Optimization
                 }
                 else
                 {
-                    //6
-                    ///if (k % 2 == 0) Betta = 0;
-                   // else
                     {
                         Betta = Math.Pow(f.Norma(x), 2) / Math.Pow(f.Norma(x_prev), 2);
                     }
                 }
                 //7
-                d = new X(-f.Fdx1(x0) + Betta * d.X1, -f.Fdx2(x0) + Betta * d.X2);
+                d = new X(-f.Fdx1(x) + Betta * d.X1, -f.Fdx2(x) + Betta * d.X2);
                 //8
-                //TODO: Lambda calculation. Now is WRONG!!!
-                Lambda = Dichotomy.GetMin((lambda) => (x.X1 + lambda * d.X1) + (x.X2 + lambda * d.X2), -100, 100, 0.1);
+                Lambda = Dichotomy.GetMin((lambda) => f.F(new X(x.X1 + lambda * d.X1, x.X2 + lambda * d.X2)), -100, 100, 0.1);
                 //9
                 x_prev = x;
                 x = new X(x.X1 + Lambda * d.X1, x.X2 + Lambda * d.X2);

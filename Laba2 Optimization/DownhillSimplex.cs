@@ -106,8 +106,8 @@ namespace Optimization
                 goto region1;
             }
             #endregion
-            x1result = xc.X1;
-            x2result = xc.X2;
+            x1result = xl.X1;
+            x2result = xl.X2;
             Console.WriteLine(new String('-', 72));
         }
 
