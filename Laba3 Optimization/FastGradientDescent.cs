@@ -39,7 +39,7 @@ namespace Laba3_Optimization
                 }
                 else
                 {
-                    Lambda /= 2;
+                    Lambda /= 1.2;
                     xp = x;
                 }
             }

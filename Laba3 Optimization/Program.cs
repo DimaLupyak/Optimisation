@@ -21,6 +21,10 @@ namespace Laba3_Optimization
         {
             X min = GradientDescent.GetMin(f, x0, 0.5, 0.001);
             Console.WriteLine(min);
+            min = FastGradientDescent.GetMin(f, x0, 0.5, 0.001);
+            Console.WriteLine(min);
+            min = NonlinearConjugateDradient.GetMin(f, x0, 0.5, 0.001);
+            Console.WriteLine(min);
             Console.ReadKey();
         }
     }

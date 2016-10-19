@@ -21,7 +21,7 @@ namespace Laba3_Optimization
         public double Fdx2(double x1, double x2) { return fdx2(x1, x2); }
         public double Fdx2(X x) { return fdx2(x.X1, x.X2); }
 
-        public double Norma(double x1, double x2) { return Math.Sqrt(fdx1(x1, x2) + fdx2(x1, x2)); }
+        public double Norma(double x1, double x2) { return Math.Sqrt(Math.Pow(fdx1(x1, x2),2) + Math.Pow(fdx2(x1, x2),2)); }
         public double Norma(X x) { return Norma(x.X1, x.X2); }
     }
 
